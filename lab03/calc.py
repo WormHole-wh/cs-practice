@@ -10,4 +10,4 @@ print(f'Разность: {raz}')
 pr = num1 * num2
 print(f'Произведение: {pr}')
 
-print('i wont to the house')
+print('это должно быть отменено')
