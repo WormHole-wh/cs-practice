@@ -4,3 +4,5 @@ num2 = int(input('Введите второе число: '))
 summ = num1 + num2
 print(f'Сумма: {summ}')
 
+raz = num1 - num2
+print(f'Разность: {raz}')
