@@ -7,5 +7,8 @@ print(f'Сумма: {summ}')
 raz = num1 - num2
 print(f'Разность: {raz}')
 
-pr = num1 - num2
+pr = num1 * num2
 print(f'Произведение: {pr}')
+
+div = num1 / num2
+print(f'Деление: {div}')
