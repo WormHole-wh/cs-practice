@@ -6,3 +6,6 @@ print(f'Сумма: {summ}')
 
 raz = num1 - num2
 print(f'Разность: {raz}')
+
+pr = num1 - num2
+print(f'Произведение: {pr}')
