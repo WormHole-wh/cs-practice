@@ -1,7 +1,7 @@
 import sys
 
 def parse_record(line: str) -> dict:
-    if not line:
+    if not line.strip():
         raise ValueError(...)
 
     par = line.split(";")
