@@ -1,9 +1,6 @@
 import sys
 
 def parse_record(line: str) -> dict:
-    if not line.strip():
-        return None
-
     par = line.split(";")
 
     if len(par) != 3:
@@ -38,6 +35,8 @@ def average_by_city(data: list[dict]) -> dict:
 def read_valid(lines: list[str]) -> list[dict]:
     data = []
     for line in lines:
+        if not line:
+            continue
         try:
             record = parse_record(line)
             if record is not None:
@@ -47,21 +46,14 @@ def read_valid(lines: list[str]) -> list[dict]:
             continue
     return data
 
-# def warmest_city(records: list[dict]) -> str:
-#     best = ""
-#     best_temp = float('-inf')
-#     for line in records:
-#         city = line['city']
-#         average_temp = line['temperature']
-#         if best == "" or average_temp > best_temp:
-#             best = city
-#             best_temp = average_temp
-#     return best_temp
 def warmest_city(records: list[dict]) -> str:
-    best = ""
-    best_temp = float('-inf')
-    for city, average_temp in sorted(records.items()):
-        if best == "" or average_temp > best_temp:
-            best = city
-            best_temp = average_temp
-    return best
+    try:
+        best = ""
+        best_temp = float('-inf')
+        for city, average_temp in sorted(records.items()):
+            if best == "" or average_temp > best_temp:
+                best = city
+                best_temp = average_temp
+        return best
+    except:
+        pass
