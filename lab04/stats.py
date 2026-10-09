@@ -51,8 +51,11 @@ def warmest_city(records: list[dict]) -> str:
     try:
         pass
     except:
+        records_ = {}
         for i in range(len(records)):
-            records[records[i]['city']] = records[i]['temperature']
+            records_[records[i]['city']] = records[i]['temperature']
+
+        records = records_
 
     finally:
         best = ""
