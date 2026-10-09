@@ -2,7 +2,7 @@ import sys
 
 def parse_record(line: str) -> dict:
     if not line.strip():
-        raise ValueError(...)
+        return None
 
     par = line.split(";")
 
@@ -41,7 +41,9 @@ def read_valid(lines: list[str]) -> list[dict]:
     data = []
     for line in lines:
         try:
-            data.append(parse_record(line))
+            record = parse_record(line)
+            if record is not None:
+                data.append(record)
 
         except ValueError:
             continue
