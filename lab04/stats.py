@@ -31,8 +31,15 @@ def read_valid(lines: list[str]) -> list[dict]:
     count = {}
     count_skip_lines = 0
     for line in lines:
-        line = parse_record(line)
+        if not line.strip():
+            continue
 
+        try:
+            line = parse_record(line)
+        except ValueError as e:
+            print(e)
+            continue
+            
         if line:
             city = line['city']
             temp = line['temperature']
