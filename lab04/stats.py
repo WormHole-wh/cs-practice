@@ -32,9 +32,9 @@ def average_by_city(data: list[dict]) -> dict:
         total[city] = total.get(city, 0) + float(temp)
         count[city] = count.get(city, 0) + 1
 
-    records = dict()
+    records = []
     for city in total:
-        records[city] = total[city] / count[city]
+        records.append({'city': city, 'temperature': total[city] / count[city]})
     return records
 
 def read_valid(lines: list[str]) -> list[dict]:
