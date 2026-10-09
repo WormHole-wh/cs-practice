@@ -15,7 +15,7 @@ def parse_record(line: str) -> dict:
         raise ValueError(...)
 
     try:
-        temp = float(temp)
+        temp = float(temp.replace(',', '.'))
     except ValueError:
         raise ValueError(...)
 
