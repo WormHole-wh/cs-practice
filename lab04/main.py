@@ -2,8 +2,11 @@ import sys
 
 from stats import average_by_city, read_valid, warmest_city
 
-lines = sys.stdin.read().splitlines()
-# lines = ['Азов;24.5;2026-07-01', 'мусор', 'Азов;25.5;2026-07-02', 'as; 100; ', 'Таганрог;30;2026-07-01', '']
+# lines = sys.stdin.read().splitlines()
+
+lines = [i.strip() for i in ['Азов;24.5;2026-07-01', 'мусор', 'Азов;25.5;2026-07-02', 'as; 100; ', 'Таганрог;30;2026-07-01', '   ', '']]
+for _ in range(lines.count('')):
+    lines.remove('')
 data = read_valid(lines)
 records = average_by_city(data)
 best = warmest_city(records)
