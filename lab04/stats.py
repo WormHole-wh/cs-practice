@@ -28,13 +28,11 @@ def average_by_city(data: list[dict]) -> dict:
     for line in data:
         city = line['city']
         temp = line['temperature']
-
         total[city] = total.get(city, 0) + float(temp)
         count[city] = count.get(city, 0) + 1
-
-    records = []
+    records = dict()
     for city in total:
-        records.append({'city': city, 'temperature': total[city] / count[city]})
+        records[city] = total[city] / count[city]
     return records
 
 def read_valid(lines: list[str]) -> list[dict]:
@@ -49,13 +47,21 @@ def read_valid(lines: list[str]) -> list[dict]:
             continue
     return data
 
+# def warmest_city(records: list[dict]) -> str:
+#     best = ""
+#     best_temp = float('-inf')
+#     for line in records:
+#         city = line['city']
+#         average_temp = line['temperature']
+#         if best == "" or average_temp > best_temp:
+#             best = city
+#             best_temp = average_temp
+#     return best_temp
 def warmest_city(records: list[dict]) -> str:
     best = ""
     best_temp = float('-inf')
-    for line in records:
-        city = line['city']
-        average_temp = line['temperature']
+    for city, average_temp in sorted(records.items()):
         if best == "" or average_temp > best_temp:
             best = city
             best_temp = average_temp
-    return best_temp
+    return best
