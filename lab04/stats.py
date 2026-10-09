@@ -49,7 +49,13 @@ def read_valid(lines: list[str]) -> list[dict]:
 
 def warmest_city(records: list[dict]) -> str:
     try:
-        pass
+        best = ""
+        best_temp = float('-inf')
+        for city, average_temp in sorted(records.items()):
+            if best == "" or average_temp > best_temp:
+                best = city
+                best_temp = average_temp
+        return best
     except:
         records_ = {}
         for i in range(len(records)):
@@ -57,7 +63,6 @@ def warmest_city(records: list[dict]) -> str:
 
         records = records_
 
-    finally:
         best = ""
         best_temp = float('-inf')
         for city, average_temp in sorted(records.items()):
