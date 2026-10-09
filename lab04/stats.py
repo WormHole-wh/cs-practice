@@ -1,8 +1,23 @@
 import sys
 
 def parse_record(line: str) -> dict:
-    city, temp, date = line.split(";")
-    return {'city': city, 'temperature': float(temp), 'date': date}
+    par = line.split(";")
+
+    if len(par) != 3:
+        raise ValueError(f'Ошибка в данных: {par} \nНеобходимо указывать "город;температура;дата".\n')
+
+    city, temp, date = [i.strip() for i in line.split(";")]
+
+    if not city or not date:
+        raise ValueError(f'Ошибка в данных: {par} \nГород или дата пустые.\n')
+
+    try:
+        temp = float(temp)
+    except ValueError:
+        raise ValueError(f'Значение температуры {temp} задано некоректно для города {city} в следующий день {date}\n')
+
+    return {'city': city, 'temperature': temp, 'date': date}
+
 
 def average_by_city(records: list[dict]) -> dict:
     total, count = records
@@ -17,18 +32,20 @@ def read_valid(lines: list[str]) -> list[dict]:
     count_skip_lines = 0
     for line in lines:
         line = parse_record(line)
-        city = line['city']
-        temp = line['temperature']
 
-        total[city] = total.get(city, 0) + float(temp)
-        count[city] = count.get(city, 0) + 1
-    return list(total, count)
+        if line:
+            city = line['city']
+            temp = line['temperature']
+
+            total[city] = total.get(city, 0) + float(temp)
+            count[city] = count.get(city, 0) + 1
+    return [total, count]
 
 def warmest_city(records: list[dict]) -> str:
     best = ""
     best_temp = float('-inf')
-    for city, average_temp in records:
-        if best == "" or average_temp >= best_temp:
-            best = min(city, best)
+    for city, average_temp in sorted(records.items()):
+        if best == "" or average_temp > best_temp:
+            best = city
             best_temp = average_temp
-    return best
+    return best_temp
