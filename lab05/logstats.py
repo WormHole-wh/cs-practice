@@ -15,7 +15,7 @@ def count_levels(lines: list[str]) -> dict:
     return levels_count
 
 def top_errors(lines: list[str], n: int) -> list:
-    return Counter(list(filter(lambda x: parse_event(x)['message'] if parse_event(x)['level'] == 'ERROR', lines))).most_common(n)
+    return Counter(parse_event(x)['message'] for x in lines if parse_event(x)['level'] == 'ERROR').most_common(n)
 
 def format_report(counts, errors):
     text = f'''\
