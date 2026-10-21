@@ -7,15 +7,18 @@ def parse_event(line: str) -> dict:
         if level in ('DEBUG', 'INFO', 'WARNING', 'ERROR'):
             return {"time": time, "level": level, "message": message}
 
-    return {"time": None, "level": 'BROKEN', "message": None}
+    raise ValueError
 
 def count_levels(lines: list[str]) -> dict:
     levels_count = dict()
     for line in lines:
         if not line.strip():
             continue
-        level = parse_event(line)['level']
-        levels_count[level] = levels_count.get(level, 0) + 1
+        try:
+            level = parse_event(line)['level']
+            levels_count[level] = levels_count.get(level, 0) + 1
+        except ValueError:
+            levels_count['BROKEN'] = levels_count.get('BROKEN', 0)
 
     return levels_count
 
