@@ -1,6 +1,6 @@
 from logstats import *
 
-path = input()
+path = input().strip()
 with open(path, encoding='utf-8') as log:
     lines = list()
     read_lines = 0
