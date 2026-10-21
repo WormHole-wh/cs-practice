@@ -1,11 +1,13 @@
 from collections import Counter
 
 def parse_event(line: str) -> dict:
-    line = line.strip().split(' ', 2)
-    if len(line) == 3:
-        time, level, message = line
-        if level in ('DEBUG', 'INFO', 'WARNING', 'ERROR'):
-            return {"time": time, "level": level, "message": message}
+    line = line.strip()
+    if line:
+        line = line.split(' ', 2)
+        if len(line) == 3:
+            time, level, message = line
+            if level in ('DEBUG', 'INFO', 'WARNING', 'ERROR'):
+                return {"time": time, "level": level, "message": message}
 
     return {"time": None, "level": 'BROKEN', "message": None}
 
