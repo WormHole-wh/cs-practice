@@ -6,7 +6,7 @@ def parse_event(line: str) -> dict:
         time, level, message = line
         if level in ('DEBUG', 'INFO', 'WARNING', 'ERROR'):
             return {"time": time, "level": level, "message": message}
-        
+
     return {"time": None, "level": 'BROKEN', "message": None}
 
 def count_levels(lines: list[str]) -> dict:
