@@ -24,11 +24,11 @@ def format_report(counts, errors):
     text = f'''\
 Отчёт по журналу
 
-BROKEN: {counts['BROKEN']}
-DEBUG: {counts['DEBUG']}
-ERROR: {counts['ERROR']}
-INFO: {counts['INFO']}
-WARNING: {counts['WARNING']}
+BROKEN: {counts.get('BROKEN', 0)}
+DEBUG: {counts.get('DEBUG', 0)}
+ERROR: {counts.get('ERROR', 0)}
+INFO: {counts.get('INFO', 0)}
+WARNING: {counts.get('WARNING', 0)}
 
 Частые ошибки:
 '''
