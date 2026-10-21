@@ -21,18 +21,11 @@ def top_errors(lines: list[str], n: int) -> list:
     return Counter(parse_event(x)['message'] for x in lines if parse_event(x)['level'] == 'ERROR').most_common(n)
 
 def format_report(counts, errors):
-    text = f'''\
-Отчёт по журналу
+    text = f'Отчёт по журналу\n\n'
+    for level in sorted(counts):
+        text += f'{level}: {counts[level]}\n'
 
-BROKEN: {counts.get('BROKEN', 0)}
-DEBUG: {counts.get('DEBUG', 0)}
-ERROR: {counts.get('ERROR', 0)}
-INFO: {counts.get('INFO', 0)}
-WARNING: {counts.get('WARNING', 0)}
-
-Частые ошибки:
-'''
-
+    text += '\nЧастые ошибки:\n'
     for error in errors:
         text += f'- {error[0]} — {error[1]}\n'
 
