@@ -18,12 +18,23 @@ def count_levels(lines: list[str]) -> dict:
             level = parse_event(line)['level']
             levels_count[level] = levels_count.get(level, 0) + 1
         except ValueError:
-            levels_count['BROKEN'] = levels_count.get('BROKEN', 0)
+            levels_count['BROKEN'] = levels_count.get('BROKEN', 0) + 1
 
     return levels_count
 
 def top_errors(lines: list[str], n: int) -> list:
-    return Counter(parse_event(x)['message'] for x in lines if parse_event(x)['level'] == 'ERROR').most_common(n)
+    try:
+        return Counter(parse_event(x)['message'] for x in lines if parse_event(x)['level'] == 'ERROR').most_common(n)
+    except ValueError:
+        _lines = list()
+        for x in lines:
+            try:
+                line = parse_event(x)
+            except ValueError:
+                continue
+            if line['level'] == 'ERROR':
+                _lines.append(line['message'])
+        return Counter(_lines).most_common(n)
 
 def format_report(counts, errors):
     text = f'Отчёт по журналу\n\n'
