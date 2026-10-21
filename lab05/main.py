@@ -11,7 +11,7 @@ with open(path, encoding='utf-8') as log:
         lines.append(line)
 
     counts = count_levels(lines)
-    print(f'{read_lines}\n{counts["ERROR"]}\n{counts["BROKEN"]}')
+    print(f'{read_lines}\n{counts["ERROR"]}\n{counts.get("BROKEN", 0)}')
     errors = top_errors(lines, 3)
 
     with open("report.txt", "w", encoding="utf-8") as f:
