@@ -5,6 +5,9 @@ def count_by_extension(paths: list[str]) -> dict[str, int]:
         if not path:
             continue
 
+        if path[-1] == '.':
+            path = path[:-1]
+
         if '.' in path:
             last_point = path.rfind('.')
             ext = path[last_point+1:].lower()
