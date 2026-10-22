@@ -3,19 +3,16 @@ from collections import Counter
 def parse_event(line: str) -> dict:
     line = line.strip()
     if not line:
-        raise ValueError()
+        raise ValueError
     line = list(filter(lambda x: x.strip(), line.split(' ')))
-
-    if len(line) != 3:
-        raise ValueError()
-
-    time, level, message = line
+    
+    time, level, *message = line
 
     levels = {'DEBUG', 'INFO', 'WARNING', 'ERROR'}
     if level not in levels:
-        raise ValueError()
+        raise ValueError
 
-    return {"time": time, "level": level, "message": message.strip()}
+    return {"time": time, "level": level, "message": ' '.join(message)}
 
 def count_levels(lines: list[str]) -> dict:
     levels_count = dict()

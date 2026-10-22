@@ -1,10 +1,9 @@
 Отчёт по журналу
 
-BROKEN: 1
+BROKEN: 2
 DEBUG: 4
 ERROR: 7
 INFO: 11
-TRACE: 1
 WARNING: 5
 
 Частые ошибки:
