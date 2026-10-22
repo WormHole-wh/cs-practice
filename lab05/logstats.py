@@ -1,18 +1,18 @@
-import re
 from collections import Counter
 
 def parse_event(line: str) -> dict:
-    pattern = r'^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})\s+(\w+)\s+(.*)\$'
-    match = re.match(pattern, line)
-    if not match:
+    line = line.strip()
+    if not line:
+        raise ValueError()
+    line = list(filter(lambda x: x.strip(), line.split(' ')))
+
+    if len(line) != 3:
         raise ValueError()
 
-    time, level, message = match.groups()
-    valid_levels = {'DEBUG', 'INFO', 'WARNING', 'ERROR'}
-    if level not in valid_levels:
-        raise ValueError()
+    time, level, message = line
 
-    if not message.strip():
+    levels = {'DEBUG', 'INFO', 'WARNING', 'ERROR'}
+    if level not in levels:
         raise ValueError()
 
     return {"time": time, "level": level, "message": message.strip()}
