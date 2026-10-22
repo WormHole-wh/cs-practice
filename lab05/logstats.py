@@ -5,7 +5,7 @@ def parse_event(line: str) -> dict:
     if not line:
         raise ValueError
     line = list(filter(lambda x: x.strip(), line.split(' ')))
-    
+
     time, level, *message = line
 
     levels = {'DEBUG', 'INFO', 'WARNING', 'ERROR'}
