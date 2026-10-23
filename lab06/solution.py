@@ -1,15 +1,16 @@
 def count_by_extension(paths: list[str]) -> dict[str, int]:
     count_ext = dict()
     for path in paths:
-        if '.' in path:
-            if path[0] == '.' or path[-1] == '.':
-                continue
-            ext = path[path.rfind('.')+1:].lower()
-            count_ext[ext] = count_ext.get(ext, 0) + 1
-        elif path.strip():
+        if not path.strip():
+            continue
+        elif (last_point := path.rfind('.')) == 0:
+            continue
+        elif last_point == len(path)-1 or last_point == -1:
             count_ext[''] = count_ext.get('', 0) + 1
+        else:
+            ext = path[last_point+1:].lower()
+            count_ext[ext] = count_ext.get(ext, 0) + 1
     return count_ext
-
 
 def deepest_path(paths: list[str]) -> str:
     if not paths:
