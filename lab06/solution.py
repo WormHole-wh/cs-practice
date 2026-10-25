@@ -4,7 +4,8 @@ def count_by_extension(paths: list[str]) -> dict[str, int]:
         if not path.strip():
             continue
 
-        last_point = path[path.rfind('/')+1:].rfind('.')
+        path = path[path.rfind('/') + 1:]
+        last_point = path.rfind('.')
 
         if last_point == -1:
             ext = ''
