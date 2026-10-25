@@ -7,7 +7,7 @@ def count_by_extension(paths: list[str]) -> dict[str, int]:
         path = path[path.rfind('/') + 1:]
         last_point = path.rfind('.')
 
-        if last_point == -1:
+        if last_point in (0, -1):
             ext = ''
 
         else:
