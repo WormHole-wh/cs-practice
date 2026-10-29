@@ -6,7 +6,7 @@ def csv_to_records(text: str) -> list[dict]:
     len_titles = len(titles)
     res = list()
     for line in lines[1:]:
-        line = line.strip()
+        line = line.strip().split(',')
 
         if not line:
             continue
