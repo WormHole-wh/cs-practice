@@ -1,19 +1,32 @@
 from json import dumps
 
+
 def csv_to_records(text: str) -> list[dict]:
+    if not text:
+        return []
+
     lines = text.split('\n')
-    titles = lines[0].split(',')
+    if not lines:
+        return []
+
+    titles = [title.strip() for title in lines[0].split(',')]
     len_titles = len(titles)
     res = list()
-    for line in lines[1:]:
-        line = line.strip().split(',')
 
+    for line in lines[1:]:
+        line = line.split(',')
         if not line:
             continue
 
+        values = [value.strip() for value in line.split(',')]
+        if len(values) < len_titles:
+            values += [''] * (len_titles - len(values))
+        elif len(values) > len_titles:
+            values = values[:len_titles]
+
         my_dict = dict()
         for i in range(len_titles):
-            my_dict[titles[i]] = line[i]
+            my_dict[titles[i]] = values[i]
 
         res.append(my_dict)
 
