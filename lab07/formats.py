@@ -6,6 +6,11 @@ def csv_to_records(text: str) -> list[dict]:
     len_titles = len(titles)
     res = list()
     for line in lines[1:]:
+        line = line.strip()
+
+        if not line:
+            continue
+
         my_dict = dict()
         for i in range(len_titles):
             my_dict[titles[i]] = line[i]
