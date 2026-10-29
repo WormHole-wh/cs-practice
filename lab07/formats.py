@@ -36,18 +36,23 @@ def parse_settings(lines: list[str]) -> dict:
 
     for line in lines:
         line = line.strip()
+
+        if not line:
+            continue
+
         if line[0] == '#':
             continue
+
         if line == 'columns:':
             columns = []
             f = 1
 
         if f and line[0] == '-':
-            columns.append(line[1:].strip())
+            columns.append(auto_to_type(line[1:].strip()))
             continue
 
         key, value = [i.strip() for i in line.split(':')]
-        res[key] = value
+        res[key] = auto_to_type(value)
 
     res['columns'] = columns
 
