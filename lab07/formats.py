@@ -59,7 +59,21 @@ def parse_settings(lines: list[str]) -> dict:
     return res
 
 def merge_by_key(rows: list[dict], extra: dict, key: str = id) -> list[dict]:
-    pass
+        result = []
+        for record in rows:
+            _record = record.copy()
+
+            key_value = record.get(key)
+
+            if key_value in extra:
+                data = extra[key_value]
+                for key, value in data.items():
+                    if key not in _record:
+                        _record[key] = value
+
+            result.append(_record)
+        return result
+
 
 def records_to_json(records: list[dict]) -> str:
     pass
