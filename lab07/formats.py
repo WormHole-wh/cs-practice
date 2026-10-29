@@ -12,6 +12,24 @@ def csv_to_records(text: str) -> list[dict]:
 
     return res
 
+def auto_to_type(value: str):
+    if value.lower() == 'true':
+        return True
+    if value.lower() == 'false':
+        return False
+
+    try:
+        return int(value)
+    except ValueError:
+        pass
+
+    try:
+        return float(value)
+    except ValueError:
+        pass
+
+    return value
+
 def parse_settings(lines: list[str]) -> dict:
     res = dict()
     f = 0
