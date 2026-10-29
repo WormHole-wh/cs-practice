@@ -1,3 +1,5 @@
+from json import dumps
+
 def csv_to_records(text: str) -> list[dict]:
     lines = text.split('\n')
     titles = lines[0].split(',')
@@ -11,6 +13,7 @@ def csv_to_records(text: str) -> list[dict]:
         res.append(my_dict)
 
     return res
+
 
 def auto_to_type(value: str):
     if value.lower() == 'true':
@@ -29,6 +32,7 @@ def auto_to_type(value: str):
         pass
 
     return value
+
 
 def parse_settings(lines: list[str]) -> dict:
     res = dict()
@@ -58,8 +62,9 @@ def parse_settings(lines: list[str]) -> dict:
 
     return res
 
+
 def merge_by_key(rows: list[dict], extra: dict, key: str = id) -> list[dict]:
-        result = []
+        res = []
         for record in rows:
             _record = record.copy()
 
@@ -71,9 +76,9 @@ def merge_by_key(rows: list[dict], extra: dict, key: str = id) -> list[dict]:
                     if key not in _record:
                         _record[key] = value
 
-            result.append(_record)
-        return result
+            res.append(_record)
+        return res
 
 
 def records_to_json(records: list[dict]) -> str:
-    pass
+    return dumps(records, ensure_ascii=False, indent=2, sort_keys=True)
