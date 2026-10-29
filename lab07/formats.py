@@ -13,7 +13,27 @@ def csv_to_records(text: str) -> list[dict]:
     return res
 
 def parse_settings(lines: list[str]) -> dict:
-    pass
+    res = dict()
+    f = 0
+
+    for line in lines:
+        line = line.strip()
+        if line[0] == '#':
+            continue
+        if line == 'columns:':
+            columns = []
+            f = 1
+
+        if f and line[0] == '-':
+            columns.append(line[1:].strip())
+            continue
+
+        key, value = [i.strip() for i in line.split(':')]
+        res[key] = value
+
+    res['columns'] = columns
+
+    return res
 
 def merge_by_key(rows: list[dict], extra: dict, key: str = id) -> list[dict]:
     pass
